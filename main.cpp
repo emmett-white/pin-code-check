@@ -2,19 +2,26 @@
 #include <conio.h>
 #include <ctime>
 
-int trenutniBroj = 1, vrednostBroja[6], pinKod[6], proveraKoda;
+int trenutniBroj = 1, vrednostBroja[6], pinKod[6], pinKodTacan;
 char key, buffer[128];
 
 void printInfo()
 {
-    system("clear");
-    std::cout << "Press SPACE to change number, press ESC to select next number, press ENTER to submit\n";
+    #ifdef linux
+        system("clear");
+    #elif _WIN32
+        system("cls");
+    #endif
+
+    std::cout << "Press SPACE to change number, press ESC to select next number, press TAB to submit\n";
     std::cout << "Enter this pin: ";
+
     for (int i = 0; i < 6; i++)
     {
          sprintf(buffer, "%d", pinKod[i]);
          std::cout << buffer;
     }
+
     std::cout << std::endl;
     std::cout << "----------------------------------\n";
     sprintf(buffer, "[%d] [%d] [%d] [%d] [%d] [%d]\n", vrednostBroja[0], vrednostBroja[1], vrednostBroja[2], vrednostBroja[3], vrednostBroja[4], vrednostBroja[5]);
@@ -62,7 +69,6 @@ int main()
             std::cout << "\n";
             std::string tacanKod;
 
-            int pinKodTacan;
             for (int i = 0; i < 6; i++)
                 pinKodTacan = vrednostBroja[i] == pinKod[i] ? 1 : 0;
 
